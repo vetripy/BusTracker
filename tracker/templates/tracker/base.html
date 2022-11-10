@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <script src="{% static 'script.js' %}"></script>
+    <title>BusDood</title>
+</head>
+<body>
+    <navbar class="navbar flex">
+        <div class="logo flex">
+            <i class='bx bxs-bus display-2h'></i>
+            <h3 class="display-2h title-logo">BUSDOOD</h3>
+            <button class="ham" id="hamButton"><i class='bx bx-menu hamburger'></i></button>
+        </div>
+
+        <div class="menu" id="menu">
+            <ul class="menu-list flex">
+                <li><a href="{% url 'index' %}" class="menu-item">Home</a></li>
+                {% if user.user_type == 'hos' %}
+                    <li><a href="#" class=menu-item>Book</a></li>
+                {% endif %}
+
+                {% if user.is_authenticated %}
+                    {% if user.user_type != 'inc' %}
+                        <li><a href="#" class="menu-item">Track</a></li>
+                    {% endif %}
+                    <li><a href="#" class="menu-item">Announcements</a></li>
+                    <li><a href="#" class="menu-item">Profile</a></li>
+                    <li><a href="{% url 'logout' %}" class="menu-item">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}" class="menu-item">Login</a></li>
+                    <li><a href="{% url 'register' %}" class="menu-item">Register</a></li>
+                {% endif %}
+            </ul>
+        </div>
+
+    </navbar>
+
+
+    <div class="main-container">
+        {% block content %}
+        {% endblock %}
+    </div>
+    
+</body>
+</html>

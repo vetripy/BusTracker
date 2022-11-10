@@ -1,0 +1,42 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+    <div class="body">
+        <div class="container-form">
+            <div class="left-box">
+                <div>
+                    <p>Name </p>
+                    <input type="text" class="inputs">
+                </div>
+                <div>
+                    <p>From Date</p>
+                    <input type="date" class="inputs">
+                </div>
+                <div>
+                    <p>To Date</p>
+                    <input type="date" class="inputs">
+                </div>
+                <div>
+                    <p>Route</p>
+                    <div class="radios">
+                        <input type="radio" id="dayscholar" name="stay" value="s1">
+                        <label for="s1">S1</label>
+                        <input type="radio" id="hosteller" name="stay" value="s2">
+                        <label for="s2">S2</label>
+                        <input type="radio" id="hosteller" name="stay" value="s2">
+                        <label for="s3">S3</label>
+                    </div>
+                </div>
+                <br>
+                <br>
+            </div>
+            
+
+            <div class="right-box">
+                <button class="btn-submit btn-att" type="submit">Book Weekend Bus</button>
+            </div>
+        </div>
+        
+    </div>
+
+{% endblock %}

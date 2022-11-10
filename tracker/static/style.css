@@ -1,0 +1,204 @@
+body{
+    background-image: url('./imgs/bus.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+.flex{
+    display: flex;
+    gap: 1rem;
+}
+.flex-col{
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar{
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 2rem;
+}
+.main-container{
+    display: flex;
+}
+.left-box, .right-box{
+    /* border: 1px solid red; */
+    width: 50%;
+}
+.right-box, .left-box{
+    display: flex;
+    justify-content: center;
+}
+.menu{
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 10px;
+    padding-right: 6.5rem;
+    padding-left: 5rem;
+    
+}
+.menu-list{
+    list-style: none;
+    gap: 4rem;
+}
+.menu-item{
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+.menu-item:hover{
+    color: rgb(170, 170, 255);
+}
+.form{
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;  
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 10px;
+    padding-block: 3rem;
+    padding-inline: 5rem;
+    width: fit-content;
+}
+.form-element{
+    width: 100%;
+}
+.form-control{
+    padding-inline:1rem;
+    padding-block:1rem;
+    width: 100%;
+    background-color: rgba(255,255,255,0.7);
+    font-size: 1rem;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+}
+.welcome-content{
+    margin: 2rem;
+    background-color: rgba(0,0,0,0.8);
+    padding: 2rem;
+    color: white;
+    border-radius:10px;
+}
+.btn{
+    border: none;
+    outline: none;
+    padding-inline:1.5rem;
+    padding-block: 0.5rem;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+.btn:hover{
+    cursor:pointer;
+}
+.submit-btn{
+    background-color:rgb(44, 125, 255);
+    color: white;
+}
+.submit-btn:hover{
+    background-color:rgb(81, 148, 255);
+
+}
+.logo{
+    align-items: center;
+}
+.help-text{
+    color: white;
+}
+.display-1{
+    font-size: 1rem;
+}
+.display-2{
+    font-size: 2rem;
+}
+.display-2h{
+    font-size: 2.5rem;
+}
+.display-3{
+    font-size: 3rem;
+}
+.display-4{
+    font-size: 4rem;
+}
+.display-5{
+    font-size: 5rem;
+}
+.white{
+    color: white;
+}
+.ham{
+    position: absolute;
+    right: 1rem;
+    z-index: 999;
+    outline: none;
+    border: none;
+    background-color: rgba(0,0,0,0);
+    padding:0;
+    display: none;
+}
+.hamburger{
+    font-size: 2rem;
+    margin: 0;
+}
+.error{
+    color: black;
+    background-color: rgb(255, 138, 138);
+    width: 90%;
+    padding: 1rem;
+    border-radius: 10px;
+}
+.heading-text{
+    background-color: rgba(0,0,0,0.8);
+    color: white;
+    height: fit-content;
+    padding: 1.5rem;
+    border-radius: 10px;
+}
+.help-links{
+    text-decoration: underline;
+    color: rgb(170, 170, 255);
+}
+.align-end{
+    align-self: flex-end;
+}
+
+@media (max-width:870px) {
+    .ham{
+        display: block;
+    }
+    .left-box, .right-box{
+
+        width: 100%;
+    }
+    .logo{
+        justify-content: flex-start;
+        width: 100%;
+    }
+    .navbar{
+        flex-direction: column;
+    }
+    .title-logo{
+        display: none;
+    }
+    .menu-list{
+        flex-direction: column;
+        align-items: center;
+    }
+    .menu-item{
+        padding-inline:0;
+    }
+    #menu{
+        display: none;
+    }
+    .menu{
+        animation-name: example;
+        animation-duration: 1s;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .main-container{
+        flex-direction: column;
+    }
+
+}
