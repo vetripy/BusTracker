@@ -162,23 +162,9 @@ body{
     align-self: flex-end;
 }
 
-@media (max-width:870px) {
+@media (max-width: 1300px){
     .ham{
         display: block;
-    }
-    .left-box, .right-box{
-
-        width: 100%;
-    }
-    .logo{
-        justify-content: flex-start;
-        width: 100%;
-    }
-    .navbar{
-        flex-direction: column;
-    }
-    .title-logo{
-        display: none;
     }
     .menu-list{
         flex-direction: column;
@@ -191,12 +177,27 @@ body{
         display: none;
     }
     .menu{
-        animation-name: example;
-        animation-duration: 1s;
+
         width: 100%;
         display: flex;
         justify-content: center;
     }
+    .navbar{
+        flex-direction: column;
+    }
+    .left-box, .right-box{
+
+        width: 100%;
+    }
+    .logo{
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    .title-logo{
+        display: none;
+    }
+
     .main-container{
         flex-direction: column;
     }
