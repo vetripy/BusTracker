@@ -13,7 +13,12 @@ body{
     display: flex;
     flex-direction: column;
 }
-
+#map{
+    height: 60vh;
+    width: 85%;
+    margin: 2rem;
+    border-radius: 10px;
+}
 .navbar{
     align-items: center;
     justify-content: space-between;

@@ -1,7 +1,11 @@
 {% extends 'tracker/base.html' %}
+{% load static %}
+
+{% block js %}
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZa4CYsdvnjo8nkj-PrGu13N-Awa3sueg&callback=initMap"></script>
+{% endblock %}
 
 {% block content %}
-
     <div class="welcome-content">
         <h2 class="welcome-item display-2">
             Never miss your bus again
@@ -10,5 +14,93 @@
             Track your bus here...
         </h2>
     </div>
+    <div id="map">
+    </div>
+    <div id="capture">
 
+    </div>
+
+    <script defer>
+        var src = "{% static 'route41.kml' %}";
+        console.log(src);
+        function initMap() {
+
+            // The location of SSN
+            const SSN = { lat:  12.751791424068767, lng: 80.20377415001991 };
+            const source1 = { lat: 12.90912456002448, lng: 80.14238015243524}
+            
+            // The map, centered at SSN
+            const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 10,
+            center: source1,
+            });
+            
+            // The marker, positioned at SSN
+            const marker = new google.maps.Marker({
+                position: SSN,
+                map: map,
+                icon: "{% static 'stop.png' %}",
+                    
+            });
+            
+            // The marker, positioned at Route 41 source stop
+            const marker2 = new google.maps.Marker({
+                position: source1,
+                map: map,
+                icon: "{% static 'stop.png' %}",
+            });
+
+            const georssLayer = new google.maps.KmlLayer({
+                url: "{% static 'route41.kml' %}",
+            });
+            georssLayer.setMap(map);
+            // The route between SSN and Route 41 source stop
+            // var kmlLayer = new google.maps.KmlLayer({
+            //     // suppressInfoWindows: false,
+            //     // preserveViewport: false,
+            //     url: src,
+            //     map: map,
+            // });
+            // kmlLayer.addListener('click', function(event) {
+            //     var content = event.featureData.infoWindowHtml;
+            //     var testimonial = document.getElementById('capture');
+            //     testimonial.innerHTML = content;
+            // }); 
+
+            infoWindow = new google.maps.InfoWindow();
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const pos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude,
+                        };
+
+                        const marker2 = new google.maps.Marker({
+                            position: {lat: position.coords.latitude, lng: position.coords.longitude},
+                            map: map,
+                            icon: "{% static 'location.png' %}",
+                        });
+                // infoWindow.setPosition(pos);
+                // infoWindow.setContent("Location found.");
+                // infoWindow.open(map);
+                // map.setCenter(pos);
+            },
+            () => {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+            } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+            }
+        }
+
+        window.initMap = initMap;
+    </script>
+
+<!-- 12.753055339866352, 80.20570231603376 (SSN) -->
+<!-- de13e4669eb44fca -->
+<!-- AIzaSyBZa4CYsdvnjo8nkj-PrGu13N-Awa3sueg -->
+<!--  -->
+<!--  -->
 {% endblock %}
