@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&family=Oswald:wght@600&family=PT+Sans+Narrow:wght@700&display=swap');
+*{
+    font-family: 'Open Sans';
+}
 body{
     background-image: url('./imgs/bus.jpg');
     background-repeat: no-repeat;
@@ -54,6 +58,9 @@ body{
 .menu-item:hover{
     color: rgb(170, 170, 255);
 }
+.form.big{
+    width: 100%;
+}
 .form{
     margin: 1rem;
     display: flex;
@@ -78,12 +85,41 @@ body{
     border: none;
     border-radius: 10px;
 }
+.form-area{
+    padding-inline:1rem;
+    padding-block:1rem;
+    width: 100%;
+    min-height: 25vh;
+    background-color: rgba(255,255,255,0.7);
+    font-size: 1rem;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+}
 .welcome-content{
     margin: 2rem;
     background-color: rgba(0,0,0,0.8);
     padding: 2rem;
     color: white;
     border-radius:10px;
+}
+.announcements-container{
+    margin: 2rem;
+    background-color: rgba(255,255,255,0.8);
+    padding: 2rem;
+    color: black;
+    border-radius:10px;
+    min-height: 70vh;
+    width: 100%;
+}
+.announcement{
+    background-color: rgba(0,0,0,0.8);
+    padding-inline: 2rem;
+    padding-block: 1rem;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    color: white;
 }
 .btn{
     border: none;
@@ -103,6 +139,13 @@ body{
 .submit-btn:hover{
     background-color:rgb(81, 148, 255);
 
+}
+.btn.submit-btn.announcement-btn{
+    margin-block: 2rem;
+}
+.btn.submit-btn.announcement-btn.del{
+    background-color: rgb(255, 113, 113);
+    color: white;
 }
 .logo{
     align-items: center;
@@ -130,6 +173,9 @@ body{
 }
 .white{
     color: white;
+}
+.display-2h.page-title{
+    color: black;
 }
 .ham{
     position: absolute;
@@ -206,5 +252,11 @@ body{
     .main-container{
         flex-direction: column;
     }
+    .page-title{
+        font-size: 1.5rem;
+    }
 
+    .announcements-container{
+        width: 70%;
+    }
 }

@@ -1,7 +1,7 @@
 from concurrent.futures.process import _python_exit
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.db.models import Q
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 
@@ -19,7 +19,11 @@ class User(AbstractUser):
 
 class Announcements(models.Model):
     title = models.CharField(max_length=100)
-    for_user = models.ForeignKey(User,max_length=3, limit_choices_to=Q(user_type="hos") | Q(user_type="bus"), default='bus', on_delete=models.CASCADE, related_name="announcements")
+    choices = (
+        ('bus', 'Bus'),
+        ('hos', 'Hostel'),
+    )
+    for_user = models.CharField(max_length=3, choices=choices, default='bus', null=False, blank=False)
     description = models.TextField()
     date = models.DateField(auto_now_add=True)
 
@@ -45,6 +49,10 @@ class Route(models.Model):
 class Bus(models.Model):
     bus_no = models.IntegerField(primary_key=True)
     bus_route = models.ForeignKey(Route, on_delete=models.CASCADE, related_name="buses")
+    capacity = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(60)], default=0)
+
+    def __str__(self):
+        return f"{self.bus_no}"
 
 class BusCoordinates(models.Model):
     bus_no = models.CharField(max_length=10)
@@ -57,7 +65,8 @@ class BusCoordinates(models.Model):
         return f"{self.bus_no} - {self.date}"
 
 class Bookings(models.Model):
-    user = models.ForeignKey(User, limit_choices_to={'user_type': 'hos'}, on_delete=models.CASCADE, related_name="bookings")
-    bus_no = models.ForeignKey(Bus, on_delete=models.CASCADE, related_name="bookings")
-    date = models.DateField(auto_now_add=True)
+    users = models.ManyToManyField(User, limit_choices_to={'user_type': 'hos'}, related_name="bookings")
+    bus = models.ForeignKey(Bus, on_delete=models.CASCADE, related_name="bookings")
+    date = models.DateField()
+    time = models.TimeField(default='00:00:00')
     route = models.ForeignKey(Route, on_delete=models.CASCADE, related_name="bookings")

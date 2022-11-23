@@ -5,6 +5,12 @@ urlpatterns = [
     path('', views.index, name="index"),
     path('login', views.login_view, name="login"),
     path('register', views.register, name="register"),
-    path('logout', views.logout_view, name="logout" )
+    path('logout', views.logout_view, name="logout" ),
+    path('announcements', views.announcements, name="announcements"),
+    path('tracker', views.tracker, name="tracker"),
+    path('bookings', views.bookings, name="bookings"),
+    path('addwbus', views.addwbus, name="addwbus"),
+    path('addannouncement', views.addannouncement, name="addannouncement"),
+    path('deleteannouncement/<int:code>', views.deleteannouncement, name="deleteannouncement"),
 
 ]

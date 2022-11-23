@@ -1,0 +1,17 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+
+    <div class="announcements-container">
+        <h2 class="display-2h">Weekend Buses</h2>
+        <!-- Add bus button -->
+        <a href="{% url 'addwbus' %}"><button class="btn submit-btn announcement-btn">Add Weekend Bus</button></a>
+
+        {% if slots %}
+            {{ slots }}
+        {% else %}
+            <h2>No available buses</h2>
+        {% endif %}
+    </div>
+
+{% endblock %}

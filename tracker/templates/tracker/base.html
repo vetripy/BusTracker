@@ -24,14 +24,14 @@
             <ul class="menu-list flex">
                 <li><a href="{% url 'index' %}" class="menu-item">Home</a></li>
                 {% if user.user_type == 'hos' %}
-                    <li><a href="#" class=menu-item>Book</a></li>
+                    <li><a href="{% url 'bookings' %}" class=menu-item>Book</a></li>
                 {% endif %}
 
                 {% if user.is_authenticated %}
                     {% if user.user_type != 'inc' %}
-                        <li><a href="#" class="menu-item">Track</a></li>
+                        <li><a href="{% url 'tracker' %}" class="menu-item">Track</a></li>
                     {% endif %}
-                    <li><a href="#" class="menu-item">Announcements</a></li>
+                    <li><a href="{% url 'announcements' %}" class="menu-item">Announcements</a></li>
                     <li><a href="#" class="menu-item">Profile</a></li>
                     <li><a href="{% url 'logout' %}" class="menu-item">Logout</a></li>
                 {% else %}
