@@ -12,5 +12,8 @@ urlpatterns = [
     path('addwbus', views.addwbus, name="addwbus"),
     path('addannouncement', views.addannouncement, name="addannouncement"),
     path('deleteannouncement/<int:code>', views.deleteannouncement, name="deleteannouncement"),
+    path('deletebus/<int:code>', views.deletebus, name="deletebus"),
+    path('bookbus/<int:code>/<int:user>', views.bookbus, name="bookbus"),
+    path('cancelbus/<int:code>/<int:user>', views.cancelbus, name="cancelbus"),
 
 ]

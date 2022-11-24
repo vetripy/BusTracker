@@ -44,15 +44,15 @@ class Route(models.Model):
     stops = models.ManyToManyField(Stops, related_name="routes")
 
     def __str__(self):
-        return f"{self.route_no}"
+        return f"Route {self.route_no}"
 
 class Bus(models.Model):
     bus_no = models.IntegerField(primary_key=True)
     bus_route = models.ForeignKey(Route, on_delete=models.CASCADE, related_name="buses")
-    capacity = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(60)], default=0)
+    capacity = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(60)], default=60)
 
     def __str__(self):
-        return f"{self.bus_no}"
+        return f"Bus {self.bus_no}"
 
 class BusCoordinates(models.Model):
     bus_no = models.CharField(max_length=10)
@@ -65,8 +65,12 @@ class BusCoordinates(models.Model):
         return f"{self.bus_no} - {self.date}"
 
 class Bookings(models.Model):
-    users = models.ManyToManyField(User, limit_choices_to={'user_type': 'hos'}, related_name="bookings")
+    users = models.ManyToManyField(User, limit_choices_to={'user_type': 'hos'}, related_name="bookings", blank=True, null=True)
     bus = models.ForeignKey(Bus, on_delete=models.CASCADE, related_name="bookings")
     date = models.DateField()
     time = models.TimeField(default='00:00:00')
     route = models.ForeignKey(Route, on_delete=models.CASCADE, related_name="bookings")
+    bus_capacity = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(60)], default=60)
+
+    def __str__(self):
+        return f"{self.bus} - {self.date}"

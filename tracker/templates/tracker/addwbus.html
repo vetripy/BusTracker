@@ -3,7 +3,26 @@
 {% block content %}
 
 <div class="announcements-container">
-    {{ form }}
+    <h2 class="display-2h">Add Weekend Buses</h2>
+    <form class="form bus-form" action="{% url 'addwbus' %}" method="POST">
+        {% csrf_token %}
+
+        <div class="form-element">
+            {{ form.bus }}
+            {{ form.route }}
+        </div>
+
+        <div class="form-element">
+            {{ form.date }}
+        </div>
+
+        <div class="form-element">
+            {{ form.time }}
+        </div>
+
+        <button class="btn submit-btn announcement-btn" type="submit">Add Bus</button>
+
+    </form>
 </div>
 
 {% endblock %}

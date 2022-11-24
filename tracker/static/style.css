@@ -21,7 +21,8 @@ body{
     height: 60vh;
     width: 85%;
     margin: 2rem;
-    border-radius: 10px;
+    border-radius: 5px;
+    background-color: rgba(255,255,255,0.9);
 }
 .navbar{
     align-items: center;
@@ -41,7 +42,7 @@ body{
 }
 .menu{
     background-color: rgba(0,0,0,0.5);
-    border-radius: 10px;
+    border-radius: 5px;
     padding-right: 6.5rem;
     padding-left: 5rem;
     
@@ -67,7 +68,7 @@ body{
     flex-direction: column;
     gap: 2rem;  
     background-color: rgba(0,0,0,0.5);
-    border-radius: 10px;
+    border-radius: 5px;
     padding-block: 3rem;
     padding-inline: 5rem;
     width: fit-content;
@@ -83,7 +84,35 @@ body{
     font-size: 1rem;
     outline: none;
     border: none;
-    border-radius: 10px;
+    margin-block: 1rem;
+    border-radius: 5px;
+}
+.form-date{
+    padding-inline:1rem;
+    padding-block:1rem;
+    margin-block: 1rem;
+    width: 100%;
+    background-color: rgba(255,255,255,0.7);
+    font-size: 1rem;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+}
+#time{
+    width: 90%;
+}
+.form.bus-form{
+    display: flex;
+}
+.route-field{
+    padding-inline: 2rem;
+    padding-block: 0.5rem;
+    margin-block: 1rem;
+    border: 1px solid #dcdcdc;
+    font-size: 1.2rem;
+}
+.btn.submit-btn.location-btn{
+    font-size: 1.2rem;
 }
 .form-area{
     padding-inline:1rem;
@@ -94,21 +123,21 @@ body{
     font-size: 1rem;
     outline: none;
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 .welcome-content{
     margin: 2rem;
     background-color: rgba(0,0,0,0.8);
     padding: 2rem;
     color: white;
-    border-radius:10px;
+    border-radius:5px;
 }
 .announcements-container{
     margin: 2rem;
     background-color: rgba(255,255,255,0.8);
     padding: 2rem;
     color: black;
-    border-radius:10px;
+    border-radius:5px;
     min-height: 70vh;
     width: 100%;
 }
@@ -196,14 +225,14 @@ body{
     background-color: rgb(255, 138, 138);
     width: 90%;
     padding: 1rem;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 .heading-text{
     background-color: rgba(0,0,0,0.8);
     color: white;
     height: fit-content;
     padding: 1.5rem;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 .help-links{
     text-decoration: underline;
@@ -213,6 +242,35 @@ body{
     align-self: flex-end;
 }
 
+.bus-info{
+    background-color: rgba(0,0,0,0.8);
+    padding: 1rem;
+    border-radius: 5px;
+    display: flex;
+    color: white;
+    justify-content: space-between;
+    gap: 2rem;
+}
+.bus-info-left, .bus-info-right,.bus-info-mid{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-inline: 1rem;
+}
+
+.bus-info-mid{
+    font-style: italic;
+    font-weight: 600;
+}
+.delete-btn{
+    background-color: rgb(255, 63, 63);
+    color: white;
+}
+.cancel-btn{
+    background-color: rgb(189, 161, 0);
+    color: white;
+}
 @media (max-width: 1300px){
     .ham{
         display: block;
@@ -258,5 +316,12 @@ body{
 
     .announcements-container{
         width: 70%;
+    }
+    .form-control.input-field{
+        padding: 0.5rem;
+        margin-block:0.5rem;
+    }
+    .form.bus-form{
+        padding:1rem;
     }
 }

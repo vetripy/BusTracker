@@ -23,7 +23,7 @@
         <div class="menu" id="menu">
             <ul class="menu-list flex">
                 <li><a href="{% url 'index' %}" class="menu-item">Home</a></li>
-                {% if user.user_type == 'hos' %}
+                {% if user.user_type != 'day' %}
                     <li><a href="{% url 'bookings' %}" class=menu-item>Book</a></li>
                 {% endif %}
 
