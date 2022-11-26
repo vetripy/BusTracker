@@ -4,8 +4,10 @@ from .models import User, Announcements, Bookings,Bus, Route
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
 from .forms import BookingsForm, RouteForm
+from django.http import JsonResponse
 # Create your views here.
 @login_required(login_url='login')
 def index(request):
@@ -145,6 +147,20 @@ def bookbus(request, code, user):
     return HttpResponseRedirect(reverse("bookings"))
 
 @login_required(login_url='login')
+def viewbookings(request, code):
+    if request.user.user_type == 'inc':
+        bookings = Bookings.objects.get(id=code)
+
+        booked_users = []
+
+        for user in bookings.users.all():
+            booked_users.append(user)
+
+        return render(request, 'tracker/viewbookings.html', {'users': booked_users})
+
+    return HttpResponseRedirect(reverse('index'))
+
+@login_required(login_url='login')
 def cancelbus(request, code, user):
     if request.user.user_type == 'hos':
         slot = Bookings.objects.get(id=code)
@@ -155,3 +171,30 @@ def cancelbus(request, code, user):
             slot.save() 
         
     return HttpResponseRedirect(reverse("bookings"))
+
+@csrf_exempt
+@login_required(login_url='login')
+def route(request, code):
+    """Returns the route data as a JSON object"""
+    route = Route.objects.get(route_no=code)
+    
+    start = {route.start_stop.stop_lat, route.start_stop.stop_lng}
+    waypoints = []
+
+    for waypoint in route.waypoints.all():
+        if waypoint.stop_lat and waypoint.stop_lng and start != {waypoint.stop_lat, waypoint.stop_lng}:
+            waypoints.append({
+                'lat': waypoint.stop_lat,
+                'lng': waypoint.stop_lng,
+            })
+
+    return JsonResponse({
+        "lat": route.start_stop.stop_lat,
+        "lng": route.start_stop.stop_lng,
+        "waypoints": waypoints
+    })
+
+@login_required(login_url='login')
+def profile(request, code):
+    user = User.objects.get(username=code)
+    return render(request, 'tracker/profile.html', {'user': user})

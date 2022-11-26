@@ -23,17 +23,17 @@
         <div class="menu" id="menu">
             <ul class="menu-list flex">
                 <li><a href="{% url 'index' %}" class="menu-item">Home</a></li>
-                {% if user.user_type != 'day' %}
-                    <li><a href="{% url 'bookings' %}" class=menu-item>Book</a></li>
-                {% endif %}
-
                 {% if user.is_authenticated %}
                     {% if user.user_type != 'inc' %}
                         <li><a href="{% url 'tracker' %}" class="menu-item">Track</a></li>
                     {% endif %}
-                    <li><a href="{% url 'announcements' %}" class="menu-item">Announcements</a></li>
-                    <li><a href="#" class="menu-item">Profile</a></li>
+                    {% if user.user_type != 'day' %}
+                        <li><a href="{% url 'bookings' %}" class=menu-item>Book</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'profile' user.username %}" class="menu-item">Profile</a></li>
                     <li><a href="{% url 'logout' %}" class="menu-item">Logout</a></li>
+                    <li><a href="{% url 'announcements' %}" class="menu-item"><i class='bx bxs-bell'></i></a></li>
+
                 {% else %}
                     <li><a href="{% url 'login' %}" class="menu-item">Login</a></li>
                     <li><a href="{% url 'register' %}" class="menu-item">Register</a></li>

@@ -11,9 +11,13 @@ urlpatterns = [
     path('bookings', views.bookings, name="bookings"),
     path('addwbus', views.addwbus, name="addwbus"),
     path('addannouncement', views.addannouncement, name="addannouncement"),
+    path('profile/<str:code>', views.profile, name="profile"),
+    path('viewbookings/<int:code>', views.viewbookings, name='viewbookings'),
     path('deleteannouncement/<int:code>', views.deleteannouncement, name="deleteannouncement"),
     path('deletebus/<int:code>', views.deletebus, name="deletebus"),
     path('bookbus/<int:code>/<int:user>', views.bookbus, name="bookbus"),
     path('cancelbus/<int:code>/<int:user>', views.cancelbus, name="cancelbus"),
+    # API Routes
+    path('route/<int:code>', views.route, name="route"),
 
 ]

@@ -34,14 +34,16 @@ class Stops(models.Model):
     stop_no = models.IntegerField(primary_key=True)
     stop_name = models.CharField(max_length=100)
     stop_lat = models.FloatField(null=True, blank=True)
-    stop_long = models.FloatField(null=True, blank=True)
+    stop_lng = models.FloatField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.stop_no} - {self.stop_name}"
 
 class Route(models.Model):
     route_no = models.IntegerField(primary_key=True)
-    stops = models.ManyToManyField(Stops, related_name="routes")
+    waypoints = models.ManyToManyField(Stops, related_name="routes")
+    start_stop = models.ForeignKey(Stops, on_delete=models.CASCADE, related_name="start_stop", null=False)
+
 
     def __str__(self):
         return f"Route {self.route_no}"

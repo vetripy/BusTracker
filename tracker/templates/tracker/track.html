@@ -23,39 +23,74 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCw0ddIErnntB_jNO1mEbWTg7tZya699cQ&libraries=places"></script>
     <script defer>
 
-        const getRoute = document.getElementById('get-route');
-        getRoute.onclick = () => {
-            const route = document.getElementById('routeNo');
-            console.log(route.value);
-        }
-
         const SSN = { lat: 12.751817768930716, lng: 80.20390072611363 };
         const map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 13,
                 center: SSN
             });
 
-        function calcRoute (slat, slng){
+        const getRoute = document.getElementById('get-route');
+        getRoute.onclick = () => {
+            const route = document.getElementById('routeNo').value;
+            fetch(`/route/${route}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                calcRoute(data.lat, data.lng, data.waypoints);
+            })
+        }
+
+        function calcRoute (slat, slng, all_waypoints){
             const source = { lat: slat, lng: slng}
 
             const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 10,
+                zoom: 15,
                 center: source,
             });
 
             let directionService = new google.maps.DirectionsService();
             let directionsRenderer = new google.maps.DirectionsRenderer({suppressMarkers: true });
 
+            let waypoints = [];
+
+            for (let step = 0; step < all_waypoints.length; step++) {
+                  waypoints.push({
+                    location: new google.maps.LatLng(all_waypoints[step].lat, all_waypoints[step].lng),
+                    stopover: true
+                  })
+            }
+            console.log(waypoints);
             request = {
                 origin: source,
                 destination: SSN,
-                travelMode: 'DRIVING'
+                travelMode: 'DRIVING',
+                waypoints: waypoints,
             };
             directionService.route(request, (result, status) => {
                 if (status == 'OK') {
                     directionsRenderer.setDirections(result);
                 }
             });
+
+            for (let step = 0; step < all_waypoints.length; step++) {
+                const marker = new google.maps.Marker({
+                position: {lat: all_waypoints[step].lat , lng: all_waypoints[step].lng},
+                icon: "{% static 'stop.png' %}",
+                map: map,
+            });
+            }
+            
+            const marker = new google.maps.Marker({
+                position: source,
+                icon: "{% static 'stop.png' %}",
+                map: map,
+            });
+            const college_marker = new google.maps.Marker({
+                position: SSN,
+                icon: "{% static 'college.png' %}",
+                map: map,
+            });
+
             directionsRenderer.setMap(map);
         };
     </script>

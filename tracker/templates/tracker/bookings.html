@@ -34,6 +34,7 @@
                         {% if user.user_type == 'inc' %}
                             <div class="bus-info-right">
                                 <a href="{% url 'deletebus' slot.id %}"><button class="btn delete-btn announcement-btn">Delete</button></a>
+                                <a href="{% url 'viewbookings' slot.id %}"><button class="btn announcement-btn submit-btn">View Bookings</button></a>
                             </div>
                         {% endif %}
                     </div>

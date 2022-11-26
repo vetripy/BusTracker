@@ -5,19 +5,24 @@
     <form class="form big" action="{% url 'addannouncement' %}" method="POST">
         {% csrf_token %}
 
-        <div class="form-element">
+        <div class="form-element announcement-fileds">
             <input placeholder="Announcement Title" type="text" name="title" class="form-control" required>
         </div>
 
-        <div class="form-element">
-            <input type="radio" id="dayscholar" name="user_type" value="day" required>
-            <label for="dayscholar" class="white">Dayscholar</label>
+        <div id="selector" class="form-element announcement-fileds">
+            <div>
+                <input type="radio" id="dayscholar" name="user_type" value="day" required>
+                <label for="dayscholar" class="white">Dayscholar</label>
+            </div>
             
-            <input type="radio" id="hosteller" name="user_type" value="hos" required>
-            <label for="hosteller" class="white">Hosteller</label>
+            <div>
+                <input type="radio" id="hosteller" name="user_type" value="hos" required>
+                <label for="hosteller" class="white">Hosteller</label>
+            </div>
+            
         </div>
 
-        <div class="form-elemet">
+        <div class="form-element announcement-fileds">
             <textarea class="form-area" name="desc" placeholder="Enter the announcement here " required></textarea>
         </div>
 
