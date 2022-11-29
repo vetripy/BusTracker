@@ -1,6 +1,6 @@
 from urllib.robotparser import RequestRate
 from django.shortcuts import render
-from .models import User, Announcements, Bookings,Bus, Route
+from .models import User, Announcements, Bookings,Bus, Route, BusCoordinates
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -8,8 +8,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
 from .forms import BookingsForm, RouteForm
 from django.http import JsonResponse
+import json
 # Create your views here.
-@login_required(login_url='login')
+
 def index(request):
     return render(request, 'tracker/home.html')
 
@@ -182,6 +183,7 @@ def route(request, code):
     waypoints = []
 
     for waypoint in route.waypoints.all():
+        print(waypoint.stop_lat, waypoint.stop_lng)
         if waypoint.stop_lat and waypoint.stop_lng and start != {waypoint.stop_lat, waypoint.stop_lng}:
             waypoints.append({
                 'lat': waypoint.stop_lat,
@@ -194,7 +196,52 @@ def route(request, code):
         "waypoints": waypoints
     })
 
+@csrf_exempt
+@login_required(login_url='login')
+def routestops(request, code):
+    """Returns all the waypoints name in the route"""
+    route = Route.objects.get(route_no=code)
+    waypoints = []
+
+    for waypoint in route.waypoints.all():
+        waypoints.append(waypoint.stop_name)
+
+    waypoints.append("SSN College of Engineering")
+    return JsonResponse({
+        "waypoints": waypoints
+    })
+
+@csrf_exempt
+@login_required(login_url='login')
+def getlocation(request, code):
+    """Get bus coordinates from the database and return it as a JsonResponse"""
+    bus = BusCoordinates.objects.get(bus__bus_no=code)
+    return JsonResponse({
+        "lat": bus.latitude,
+        "lng": bus.longitude
+    })
+
+@csrf_exempt
+@login_required(login_url='login')
+def setlocation(request, code):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        bus = BusCoordinates.objects.get(bus__bus_route__route_no=code)
+        data = data.get('location')
+        print(data.get('lat'), data.get('lng'))
+        bus.latitude = data.get('lat')
+        bus.longitude = data.get('lng')
+        bus.save()
+        return JsonResponse({"message": "Location saved successfully."}, status=201)
+
+        
 @login_required(login_url='login')
 def profile(request, code):
     user = User.objects.get(username=code)
     return render(request, 'tracker/profile.html', {'user': user})
+
+@login_required(login_url='login')
+def routes(request):
+    routes = Route.objects.all()
+    return render(request, 'tracker/routes.html', {'form': RouteForm()})
+

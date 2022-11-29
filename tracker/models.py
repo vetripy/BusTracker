@@ -57,14 +57,14 @@ class Bus(models.Model):
         return f"Bus {self.bus_no}"
 
 class BusCoordinates(models.Model):
-    bus_no = models.CharField(max_length=10)
-    latitude = models.CharField(max_length=20)
-    longitude = models.CharField(max_length=20)
+    bus = models.ForeignKey(Bus, on_delete=models.CASCADE, related_name="bus_coordinates")
+    latitude = models.FloatField()
+    longitude = models.FloatField()
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.bus_no} - {self.date}"
+        return f"{self.bus.bus_no} - {self.date}"
 
 class Bookings(models.Model):
     users = models.ManyToManyField(User, limit_choices_to={'user_type': 'hos'}, related_name="bookings", blank=True, null=True)

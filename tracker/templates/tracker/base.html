@@ -26,6 +26,7 @@
                 {% if user.is_authenticated %}
                     {% if user.user_type != 'inc' %}
                         <li><a href="{% url 'tracker' %}" class="menu-item">Track</a></li>
+                        <li><a href="{% url 'routes' %}" class="menu-item">Routes</a></li>
                     {% endif %}
                     {% if user.user_type != 'day' %}
                         <li><a href="{% url 'bookings' %}" class=menu-item>Book</a></li>

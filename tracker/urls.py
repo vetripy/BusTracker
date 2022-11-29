@@ -11,6 +11,7 @@ urlpatterns = [
     path('bookings', views.bookings, name="bookings"),
     path('addwbus', views.addwbus, name="addwbus"),
     path('addannouncement', views.addannouncement, name="addannouncement"),
+    path('routes', views.routes, name="routes"),
     path('profile/<str:code>', views.profile, name="profile"),
     path('viewbookings/<int:code>', views.viewbookings, name='viewbookings'),
     path('deleteannouncement/<int:code>', views.deleteannouncement, name="deleteannouncement"),
@@ -19,5 +20,8 @@ urlpatterns = [
     path('cancelbus/<int:code>/<int:user>', views.cancelbus, name="cancelbus"),
     # API Routes
     path('route/<int:code>', views.route, name="route"),
+    path('routestops/<int:code>', views.routestops, name="routestops"),
+    path('getlocation/<int:code>', views.getlocation, name="getlocation"),
+    path('setlocation/<int:code>', views.setlocation, name="setlocation"),
 
 ]

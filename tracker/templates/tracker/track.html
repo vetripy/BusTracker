@@ -14,7 +14,8 @@
         </h2>
         <div class="route-selecter">
             {{ form.route  }}
-            <button id="get-route" class="btn submit-btn location-btn">Get Location</button>
+            <button id="get-route" class="btn submit-btn location-btn">Get Location</button><br><br>
+            <button id="set-location" class="btn submit-btn location-btn" style="background-color: rgb(129, 129, 0);">Set Location</button>
         </div>
     </div>
     <div id="map">
@@ -22,12 +23,45 @@
     </div>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCw0ddIErnntB_jNO1mEbWTg7tZya699cQ&libraries=places"></script>
     <script defer>
+        let pos;
+        function getlocation(route){
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    };
+                    fetch(`/setlocation/${route}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({
+                        'location': pos
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                })
+                    },
+                    () => {
+                        return null;
+                    }); 
 
+        }
         const SSN = { lat: 12.751817768930716, lng: 80.20390072611363 };
         const map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 13,
                 center: SSN
             });
+
+        const setLocation = document.getElementById('set-location');
+        setLocation.onclick = () => {
+            const route = document.getElementById('routeNo').value;
+            getlocation(route);
+        }
 
         const getRoute = document.getElementById('get-route');
         getRoute.onclick = () => {
@@ -36,11 +70,13 @@
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                calcRoute(data.lat, data.lng, data.waypoints);
+                calcRoute(data.lat, data.lng, data.waypoints, route);
             })
         }
+        
+        
 
-        function calcRoute (slat, slng, all_waypoints){
+        function calcRoute (slat, slng, all_waypoints, route){
             const source = { lat: slat, lng: slng}
 
             const map = new google.maps.Map(document.getElementById("map"), {
@@ -90,6 +126,17 @@
                 icon: "{% static 'college.png' %}",
                 map: map,
             });
+
+            fetch(`/getlocation/${route}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                const bus_marker = new google.maps.Marker({
+                    position: {lat: data.lat, lng: data.lng},
+                    icon: "{% static 'location.png' %}",
+                    map: map,
+                });
+            })
 
             directionsRenderer.setMap(map);
         };
