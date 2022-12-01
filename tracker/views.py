@@ -183,7 +183,6 @@ def route(request, code):
     waypoints = []
 
     for waypoint in route.waypoints.all():
-        print(waypoint.stop_lat, waypoint.stop_lng)
         if waypoint.stop_lat and waypoint.stop_lng and start != {waypoint.stop_lat, waypoint.stop_lng}:
             waypoints.append({
                 'lat': waypoint.stop_lat,
@@ -227,10 +226,8 @@ def setlocation(request, code):
     if request.method == "POST":
         data = json.loads(request.body)
         bus = BusCoordinates.objects.get(bus__bus_route__route_no=code)
-        data = data.get('location')
-        print(data.get('lat'), data.get('lng'))
-        bus.latitude = data.get('lat')
-        bus.longitude = data.get('lng')
+        bus.latitude = data.get('latitude')
+        bus.longitude = data.get('longitude')
         bus.save()
         return JsonResponse({"message": "Location saved successfully."}, status=201)
 
