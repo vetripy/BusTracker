@@ -101,13 +101,13 @@ def deleteannouncement(request, code):
 def bookings(request):
     slots = Bookings.objects.all()
 
-    booked_users = [] 
+    slots_list = [{"slot": slot, "users": []} for slot in slots]
 
-    for slot in slots:
-        for user in slot.users.all():
-            booked_users.append(user.username)
+    for i in range(len(slots)):
+        for user in slots[i].users.all():
+            slots_list[i]["users"].append(user.username)
 
-    return render(request, 'tracker/bookings.html', {'slots': slots, 'booked_users': booked_users})
+    return render(request, 'tracker/bookings.html', {'slots': slots_list})
 
 @login_required(login_url='login')
 def addwbus(request):

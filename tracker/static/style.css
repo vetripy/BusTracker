@@ -285,6 +285,7 @@ body{
     color: white;
     justify-content: space-between;
     gap: 2rem;
+    margin: 1rem;
 }
 .bus-info-left, .bus-info-right,.bus-info-mid{
     display: flex;
@@ -511,4 +512,13 @@ body{
         display: flex;
         flex-direction: column;
     }
+    .home-container{
+        margin-top:1rem;
+        width: 55%;
+        font-size: 0.7rem;
+    }
 }
+.home-container{
+    font-size: 1.3rem;
+}
+

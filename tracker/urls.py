@@ -18,6 +18,7 @@ urlpatterns = [
     path('deletebus/<int:code>', views.deletebus, name="deletebus"),
     path('bookbus/<int:code>/<int:user>', views.bookbus, name="bookbus"),
     path('cancelbus/<int:code>/<int:user>', views.cancelbus, name="cancelbus"),
+    
     # API Routes
     path('route/<int:code>', views.route, name="route"),
     path('routestops/<int:code>', views.routestops, name="routestops"),
